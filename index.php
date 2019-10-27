@@ -50,14 +50,11 @@ $user_name = "Марат"; // укажите здесь ваше имя
                     <ul class="promo__list">
                         <?php
                         $categories = ["Доски и лыжи", "Крепления", "Ботинки", "Одежда", "Инструменты", "Разное"];
-                        $index = 0;
-                        $num = count($categories);
-                        while ($index < $num): ?>
+                        foreach ($categories as $category): ?>
                         <li class="promo__item promo__item--boards">
-                            <a class="promo__link" href="pages/all-lots.html"><?= $categories[$index]?></a>
+                            <a class="promo__link" href="pages/all-lots.html"><?= $category?></a>
                         </li>
-                        <?php $index++; ?>
-                        <?php endwhile; ?>
+                        <?php endforeach; ?>
                     </ul>
                 </section>
                 <section class="lots">
