@@ -31,8 +31,8 @@
                                     <span class="lot__amount">Стартовая цена</span>
                                     <span class="lot__cost"><?= price($product["price"]); ?></span>
                                 </div>
-                                <div class="lot__timer timer">
-                                    12:23
+                                <div class="lot__timer timer <?php if (timer($product['date']) < 1): ?> timer--finishing <?php endif ?>">
+                                    <?=timer($product['date']);?>
                                 </div>
                             </div>
                         </div>
