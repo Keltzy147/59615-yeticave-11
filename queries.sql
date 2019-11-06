@@ -71,3 +71,29 @@ INSERT INTO lots SET user_id = 1,
 
 INSERT INTO bets SET user_id = 1, lot_id = 1, price = 11999;
 INSERT INTO bets SET user_id = 3, lot_id = 1, price = 12999;
+
+-- ѕолучаю все категории;
+SELECT * FROM categories;
+
+-- ѕолучаю столбцы: название, перва€ цена, картинка, категори€ и цена;
+-- ”словие дл€ столбца цена: где - максимальна€ ставка не равн€етс€ нулю, если истина - вывод максимальной ставки, иначе вывод первой цены;
+-- «аписываю результат в столбец с наименованием price;
+-- ѕрисоедин€ю к таблице lots таблицу categories по критерию - совпадают id,
+-- ¬ывод всего результата где дата окончани€ срока действи€ лота больше, чем текуща€ дата;
+-- —ортирую вывод по колонке срока окончани€ действи€ лота от нового к старому.
+SELECT lots.name, lots.first_price, lots.img, categories.name,
+       CASE
+            WHEN (SELECT MAX(price) FROM bets WHERE bets.lot_id = lots.id) != 0 THEN (SELECT MAX(price) FROM bets WHERE bets.lot_id = lots.id)
+            ELSE lots.first_price
+       END AS price
+       FROM lots JOIN categories ON lots.category_id = categories.id
+       WHERE lots.expiry_date > CURDATE() ORDER BY lots.expiry_date DESC;
+
+-- ¬ывожу лот по его id, а также категорию к которой он относитс€ и присоедин€ю таблицу категорий по условию - что id совпадают.
+SELECT lots.name, categories.name FROM lots JOIN categories ON lots.category_id = categories.id WHERE lots.id = 1
+
+-- ќбновл€ю столбец name в таблице lots где id записи равен 1.
+UPDATE lots SET name = 'Ќовое название лота' WHERE id = 1;
+
+-- ¬ывожу все записи в таблице bets в которой lot_id = 3 и сортирую по колонке даты от нового к старому;
+SELECT * FROM bets WHERE lot_id = 3 ORDER BY created_at DESC;
