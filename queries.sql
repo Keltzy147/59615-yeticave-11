@@ -70,7 +70,7 @@ INSERT INTO lots SET user_id = 1,
                      step = 500;
 
 INSERT INTO bets SET user_id = 1, lot_id = 1, price = 11999;
-INSERT INTO bets SET user_id = 3, lot_id = 1, price = 12999;
+INSERT INTO bets SET user_id = 2, lot_id = 1, price = 12999;
 
 -- Получаю все категории;
 SELECT * FROM categories;
