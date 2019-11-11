@@ -70,7 +70,7 @@ INSERT INTO lots SET user_id = 1,
                      step = 500;
 
 INSERT INTO bets SET user_id = 1, lot_id = 1, price = 11999;
-INSERT INTO bets SET user_id = 3, lot_id = 1, price = 12999;
+INSERT INTO bets SET user_id = 2, lot_id = 1, price = 12999;
 
 ALTER TABLE `bets` ADD CONSTRAINT `FK_bets_lots` FOREIGN KEY (`user_id`) REFERENCES `lots` (`user_id`);
 ALTER TABLE `bets` ADD CONSTRAINT `bets_ibfk_1` FOREIGN KEY (`lot_id`) REFERENCES `lots` (`id`);
