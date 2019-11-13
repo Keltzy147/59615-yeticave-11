@@ -85,7 +85,7 @@ SELECT * FROM categories;
 -- Записываю результат в столбец с наименованием price ;
 -- Присоединяю к таблице lots таблицу categories по критерию - совпадают id,
 -- Вывод всего результата где дата окончания срока действия лота больше, чем текущая дата;
--- Сортирую вывод по колонке окончания действия срока лота от нового к старому.
+-- Сортирую вывод по колонке окончания действия срока лота от нового к старому .
 SELECT lots.name, lots.first_price, lots.img, categories.name,
        CASE
             WHEN (SELECT MAX(price) FROM bets WHERE bets.lot_id = lots.id) != 0 THEN (SELECT MAX(price) FROM bets WHERE bets.lot_id = lots.id)
