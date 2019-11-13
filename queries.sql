@@ -1,4 +1,4 @@
-INSERT INTO categories SET name = 'Доски и лыжи', link = 'boards';
+﻿ERT INTO categories SET name = 'Доски и лыжи', link = 'boards';
 INSERT INTO categories SET name = 'Крепления', link = 'attachment';
 INSERT INTO categories SET name = 'Ботинки', link = 'boots';
 INSERT INTO categories SET name = 'Одежда', link = 'clothing';
@@ -76,19 +76,15 @@ INSERT INTO bets SET user_id = 3, lot_id = 1, price = 12999;
 SELECT * FROM categories;
 
 -- Получаю столбцы: название, первая цена, картинка, категория и цена;
--- Условие для столбца цена: где - максимальная ставка не равняется нулю, если истина - вывод максимальной ставки, иначе вывод первой цены;
--- Записываю результат в столбец с наименованием price;
+-- Присоединяю к таблице lots таблицу bets по критерию - совпадают id,
 -- Присоединяю к таблице lots таблицу categories по критерию - совпадают id,
 -- Вывод всего результата где дата окончания срока действия лота больше, чем текущая дата;
 -- Сортирую вывод по колонке срока окончания действия лота от нового к старому.
-SELECT lots.name, lots.first_price, lots.img, categories.name,
-       CASE
-            WHEN (SELECT MAX(price) FROM bets WHERE bets.lot_id = lots.id) != 0 THEN (SELECT MAX(price) FROM bets WHERE bets.lot_id = lots.id)
-            ELSE lots.first_price
-       END AS price
-       FROM lots JOIN categories ON lots.category_id = categories.id
+SELECT lots.name, lots.first_price, lots.img, bets.price AS price, categories.name AS category
+       FROM lots
+              LEFT JOIN bets ON lots.id = bets.lot_id
+              LEFT JOIN categories ON lots.category_id = categories.id
        WHERE lots.expiry_date > CURDATE() ORDER BY lots.expiry_date DESC;
-
 -- Вывожу лот по его id, а также категорию к которой он относится и присоединяю таблицу категорий по условию - что id совпадают.
 SELECT lots.name, categories.name FROM lots JOIN categories ON lots.category_id = categories.id WHERE lots.id = 1
 
