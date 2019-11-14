@@ -31,7 +31,7 @@ function include_template($name, array $data = []) {
 function timer($time){
     $diff = strtotime($time) - time();
 
-    $hours = floor($diff / 60 / 60); // перевод в часы с округлением вниз
+    $hours = floor($diff / 60 / 60); //  перевод в часы с округлением вниз
     $hours = str_pad ($hours, 2, "0", STR_PAD_LEFT); // добавляем 0 перед числом, если число меньше 2 знаков
 
     $minutes = floor(($diff - ($hours * 60 * 60)) / 60); // получаем минуты
