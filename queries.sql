@@ -86,12 +86,10 @@ SELECT * FROM categories;
 -- Присоединяю к таблице lots таблицу categories по критерию - совпадают id,
 -- Вывод всего результата где дата окончания срока действия лота больше, чем текущая дата;
 -- Сортирую вывод по колонке окончания действия срока лота от нового к старому .
-SELECT lots.name, lots.first_price, lots.img, categories.name,
-       CASE
-            WHEN (SELECT MAX(price) FROM bets WHERE bets.lot_id = lots.id) != 0 THEN (SELECT MAX(price) FROM bets WHERE bets.lot_id = lots.id)
-            ELSE lots.first_price
-       END AS price
-       FROM lots JOIN categories ON lots.category_id = categories.id
+SELECT lots.name, lots.first_price, lots.img, categories.name, bets.price AS price, categories.name AS category
+       FROM lots 
+       JOIN bets ON lots.id = bets.lot_id
+       JOIN categories ON lots.category_id = categories.id
        WHERE lots.expiry_date > CURDATE() ORDER BY lots.expiry_date DESC;
 
 -- Вывожу лот по его id, а также категорию к которой он относится и присоединяю таблицу категорий по условию - что id совпадают.
