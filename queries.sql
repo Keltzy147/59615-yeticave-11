@@ -1,4 +1,4 @@
-﻿ERT INTO categories SET name = 'Доски и лыжи', link = 'boards';
+INSERT INTO categories SET name = 'Доски и лыжи', link = 'boards';
 INSERT INTO categories SET name = 'Крепления', link = 'attachment';
 INSERT INTO categories SET name = 'Ботинки', link = 'boots';
 INSERT INTO categories SET name = 'Одежда', link = 'clothing';
@@ -70,21 +70,28 @@ INSERT INTO lots SET user_id = 1,
                      step = 500;
 
 INSERT INTO bets SET user_id = 1, lot_id = 1, price = 11999;
-INSERT INTO bets SET user_id = 3, lot_id = 1, price = 12999;
+INSERT INTO bets SET user_id = 2, lot_id = 1, price = 12999;
+
+ALTER TABLE `bets` ADD CONSTRAINT `FK_bets_users` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`);
+ALTER TABLE `bets` ADD CONSTRAINT `bets_ibfk_1` FOREIGN KEY (`lot_id`) REFERENCES `lots` (`id`);
+ALTER TABLE `lots` ADD CONSTRAINT `FK_lots_users` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`);
+ALTER TABLE `lots` ADD CONSTRAINT `lots_ibfk_1` FOREIGN KEY (`category_id`) REFERENCES `categories` (`id`);
 
 -- Получаю все категории;
 SELECT * FROM categories;
 
 -- Получаю столбцы: название, первая цена, картинка, категория и цена;
--- Присоединяю к таблице lots таблицу bets по критерию - совпадают id,
+-- Условие для столбца цена: где - максимальная ставка не равняется нулю, если истина - вывод максимальной ставки, иначе вывод первой цены;
+-- Записываю результат в столбец с наименованием price ;
 -- Присоединяю к таблице lots таблицу categories по критерию - совпадают id,
 -- Вывод всего результата где дата окончания срока действия лота больше, чем текущая дата;
--- Сортирую вывод по колонке срока окончания действия лота от нового к старому.
+-- Сортирую вывод по колонке окончания действия срока лота от нового к старому .
 SELECT lots.name, lots.first_price, lots.img, bets.price AS price, categories.name AS category
        FROM lots
               LEFT JOIN bets ON lots.id = bets.lot_id
               LEFT JOIN categories ON lots.category_id = categories.id
        WHERE lots.expiry_date > CURDATE() ORDER BY lots.expiry_date DESC;
+
 -- Вывожу лот по его id, а также категорию к которой он относится и присоединяю таблицу категорий по условию - что id совпадают.
 SELECT lots.name, categories.name FROM lots JOIN categories ON lots.category_id = categories.id WHERE lots.id = 1
 
