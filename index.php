@@ -35,7 +35,7 @@ function timer($time){
     $hours = str_pad ($hours, 2, "0", STR_PAD_LEFT); // добавляем 0 перед числом, если число меньше 2 знаков
 
     $minutes = floor(($diff - ($hours * 60 * 60)) / 60); // получаем минуты
-    $minutes = str_pad ($minutes, 2, "0", STR_PAD_LEFT); // добавляем 0 перед числом, если число меньше 2 знаков
+    $minutes = str_pad ($minutes, 2, "0", STR_PAD_LEFT); //  добавляем 0 перед числом, если число меньше 2 знаков
 
     $timer = $hours . ':' . $minutes;
 
