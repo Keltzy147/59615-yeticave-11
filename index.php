@@ -21,12 +21,10 @@ else{
     }
 
     $sql_products = <<<SQL
-SELECT lots.name, lots.first_price, lots.img, lots.expiry_date, categories.name AS category,
-       CASE
-            WHEN (SELECT MAX(price) FROM bets WHERE bets.lot_id = lots.id) != 0 THEN (SELECT MAX(price) FROM bets WHERE bets.lot_id = lots.id)
-            ELSE lots.first_price
-       END AS price
-       FROM lots JOIN categories ON lots.category_id = categories.id
+SELECT lots.name, lots.first_price, lots.img, bets.price AS price, categories.name AS category
+       FROM lots
+              LEFT JOIN bets ON lots.id = bets.lot_id
+              LEFT JOIN categories ON lots.category_id = categories.id
        WHERE lots.expiry_date > CURDATE() ORDER BY lots.expiry_date DESC;
 SQL;
 
