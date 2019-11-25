@@ -1,4 +1,3 @@
-      <main>
         <nav class="nav">
           <ul class="nav__list container">
             <?php foreach ($categories as $category): ?>
@@ -15,7 +14,7 @@
               <div class="lot-item__image">
                 <img src="../<?= $lot['img'] ?>" width="730" height="548" alt="<?= $lot['name'] ?>">
               </div>
-              <p class="lot-item__category">Категория: <span><?= $lot['categories'] ?></span></p>
+              <p class="lot-item__category">Категория: <span><?= $lot['category'] ?></span></p>
               <p class="lot-item__description"><?= $lot['description'] ?></p>
             </div>
             <div class="lot-item__right">
@@ -26,7 +25,7 @@
                 <div class="lot-item__cost-state">
                   <div class="lot-item__rate">
                     <span class="lot-item__amount">Текущая цена</span>
-                    <span class="lot-item__cost"><?= price($lot['first_price']); ?></span>
+                    <span class="lot-item__cost"><?= price($lot['price']); ?></span>
                   </div>
                   <div class="lot-item__min-cost">
                     Мин. ставка <span><?= price($lot['step']); ?></span>
@@ -99,4 +98,3 @@
             </div>
           </div>
         </section>
-      </main>

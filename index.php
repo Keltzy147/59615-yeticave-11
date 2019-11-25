@@ -21,15 +21,12 @@ else{
         print("Ошибка подключения " . mysqli_connect_error());
     }
 
-    $sql_products = <<<SQL
-SELECT lots.id, lots.name, lots.first_price, lots.img, lots.expiry_date, categories.name AS category,
-       CASE
-            WHEN (SELECT MAX(price) FROM bets WHERE bets.lot_id = lots.id) != 0 THEN (SELECT MAX(price) FROM bets WHERE bets.lot_id = lots.id)
-            ELSE lots.first_price
-       END AS price
-       FROM lots JOIN categories ON lots.category_id = categories.id
-       WHERE lots.expiry_date > CURDATE() ORDER BY lots.expiry_date DESC;
-SQL;
+    $sql_products = "SELECT lots.id, lots.name, lots.img, categories.name AS category, expiry_date, count(bets.price) AS price, "
+    . "IF (count(bets.price) > 0, MAX(bets.price), lots.first_price) AS price "
+    . "FROM lots "
+    . "LEFT JOIN bets ON lots.id = bets.lot_id "
+    . "LEFT JOIN categories ON lots.category_id = categories.id "
+    . "WHERE lots.expiry_date > CURDATE() GROUP BY lots.id ORDER BY lots.expiry_date DESC ";
 
     $products_result = mysqli_query($connect_db, $sql_products);
     if ($products_result) {

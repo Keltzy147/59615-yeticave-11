@@ -4,9 +4,9 @@
     горнолыжное снаряжение.</p>
     <ul class="promo__list">
         <?php foreach ($categories as $category): ?>
-        <li class="promo__item promo__item--<?= $category["link"]; ?>">
-            <a class="promo__link" href="lot.php"><?= $category["name"];  ?></a>
-        </li>
+            <li class="promo__item promo__item--<?= $category["link"]; ?>">
+                <a class="promo__link" href="lot.php"><?= $category["name"];  ?></a>
+            </li>
         <?php endforeach; ?>
     </ul>
 </section>
@@ -16,15 +16,15 @@
     </div>
     <ul class="lots__list">
         <?php foreach ($products as $product): ?>
-        <li class="lots__item lot">
-            <div class="lot__image">
-                <img src="<?= $product["img"]; ?>" width="350" height="260" alt="">
-            </div>
-            <div class="lot__info">
-                <span class="lot__category"><?= $product["category"]; ?></span>
-                <h3 class="lot__title">
-                <a class="text-link" href="lot.php/?id=<?= $product["id"]; ?>"><?= $product["name"]; ?>
-                </a>
+            <li class="lots__item lot">
+                <div class="lot__image">
+                    <img src="<?= $product["img"]; ?>" width="350" height="260" alt="">
+                </div>
+                <div class="lot__info">
+                    <span class="lot__category"><?= $product["category"]; ?></span>
+                    <h3 class="lot__title">
+                        <a class="text-link" href="lot.php/?id=<?= $product["id"]; ?>"><?= $product["name"]; ?>
+                    </a>
                 </h3>
                 <div class="lot__state">
                     <div class="lot__rate">
@@ -37,6 +37,6 @@
                 </div>
             </div>
         </li>
-        <?php endforeach; ?>
-    </ul>
+    <?php endforeach; ?>
+</ul>
 </section>
