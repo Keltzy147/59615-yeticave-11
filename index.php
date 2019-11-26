@@ -1,25 +1,5 @@
 <?php
-$is_auth = rand(0, 1);
-$user_name = "Марат"; // укажите здесь ваше имя
-
-require_once("function.php");
-$connect_db = mysqli_connect("localhost","root","","yeticave");
-
-if(!$connect_db){
-    print("Ошибка подключения " . mysqli_connect_error());
-}
-else{
-    mysqli_set_charset($connect_db, "utf8");
-    mysqli_options(mysqli_init(), MYSQLI_OPT_INT_AND_FLOAT_NATIVE, 1);
-    $sql = 'SELECT  `name`,`link` FROM categories';
-    $result = mysqli_query($connect_db, $sql);
-
-    if($result){
-        $categories = mysqli_fetch_all($result, MYSQLI_ASSOC);
-    }
-    else{
-        print("Ошибка подключения " . mysqli_connect_error());
-    }
+require_once("bd_connect.php");
 
     $sql_products = "SELECT lots.id, lots.name, lots.img, categories.name AS category, expiry_date, count(bets.price) AS price, "
     . "IF (count(bets.price) > 0, MAX(bets.price), lots.first_price) AS price "
@@ -34,7 +14,6 @@ else{
     } else {
         return null;
     }
-}
 
 $page_content = include_template('main.php',[
     'categories' => $categories,

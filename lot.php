@@ -17,27 +17,29 @@ else{
         $categories = mysqli_fetch_all($result, MYSQLI_ASSOC);
     }
     else{
-        print("Ошибка подключения " . mysqli_connect_error());
-    }
-    $lot_id = filter_input(INPUT_GET, 'id');
-    $sql_lot = "SELECT lots.name, lots.img, lots.description, expiry_date, first_price, step, categories.name as categories FROM lots JOIN categories ON lots.category_id = categories.id WHERE lots.id = '%s'";
-    $sql_lot = sprintf($sql_lot, $lot_id);
-    $result = mysqli_query($connect_db, $sql_lot);
-    if ($result) {
-        if (!mysqli_num_rows($result)) {
-            http_response_code(404);
-            $page_content = include_template('error.php', ['error' => 'Лот № ' . $lot_id . ' не найден']);
-            $page_title = "Лот № " . $lot_id . " не найден";
-        } else {
-            $lot = mysqli_fetch_all($result, MYSQLI_ASSOC)[0];
-            $page_content = include_template('lots.php', [
-                'categories' => $categories,
-                'lot' => $lot,
-                'expiry_date' => $lot['expiry_date']
-            ]);
-            $page_title = $lot['name'];
-        }
-    }
+     http_response_code(404);
+     $page_content = include_template('error.php', ['error' => 'Лот № ' . $lot_id . ' не найден']);
+     $page_title = "Лот № " . $lot_id . " не найден";
+     print("Ошибка подключения" . mysqli_connect_error());;
+ }
+ $lot_id = filter_input(INPUT_GET, 'id');
+ $sql_lot = "SELECT lots.id, lots.name, lots.img, categories.name AS category, lots.description, lots.step, lots.expiry_date, count(bets.price) AS price, "
+ . "IF (count(bets.price) > 0, MAX(bets.price), lots.first_price) AS price "
+ . "FROM lots "
+ . "LEFT JOIN bets ON lots.id = bets.lot_id "
+ . "LEFT JOIN categories ON lots.category_id = categories.id "
+ . "WHERE lots.id = '%s' GROUP BY lots.id; ";
+ $sql_lot = sprintf($sql_lot, $lot_id);
+ $result = mysqli_query($connect_db, $sql_lot);
+ if ($result) {
+    $lot = mysqli_fetch_all($result, MYSQLI_ASSOC)[0];
+    $page_content = include_template('lots.php', [
+        'categories' => $categories,
+        'lot' => $lot,
+        'expiry_date' => $lot['expiry_date']
+    ]);
+    $page_title = $lot['name'];
+}
 }
 
 $layout_page = include_template('layout_lots.php', [
