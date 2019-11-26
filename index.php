@@ -1,5 +1,6 @@
 <?php
 require_once("bd_connect.php");
+require_once("sql_category.php");
 
     $sql_products = "SELECT lots.id, lots.name, lots.img, categories.name AS category, expiry_date, count(bets.price) AS price, "
     . "IF (count(bets.price) > 0, MAX(bets.price), lots.first_price) AS price "
