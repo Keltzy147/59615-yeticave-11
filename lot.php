@@ -1,4 +1,5 @@
 <?php
+require_once("function.php");
 require_once("bd_connect.php");
 require_once("sql_category.php");
 
@@ -32,5 +33,5 @@ $layout_page = include_template('layout_lots.php', [
     'is_auth' => $is_auth,
     'user_name' => $user_name
 ]);
-strip_tags(print($layout_page));
+print($layout_page);
 ?>
