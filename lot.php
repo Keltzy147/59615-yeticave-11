@@ -1,7 +1,7 @@
 <?php
 require_once("function.php");
 require_once("bd_connect.php");
-require_once("sql_category.php");
+require_once("get_category.php");
 
  $lot_id = filter_input(INPUT_GET, 'id');
  $sql_lot = "SELECT lots.id, lots.name, lots.img, categories.name AS category, lots.description, lots.step, lots.expiry_date, count(bets.price) AS price, "
