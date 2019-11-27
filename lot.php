@@ -14,7 +14,7 @@ require_once("get_category.php");
  $result = mysqli_query($connect_db, $sql_lot);
  if (mysqli_num_rows($result)){
     $lot = mysqli_fetch_all($result, MYSQLI_ASSOC)[0];
-    $page_content = include_template('lots.php', [
+    $page_content = include_template('lot.php', [
         'categories' => $categories,
         'lot' => $lot,
         'expiry_date' => $lot['expiry_date']
