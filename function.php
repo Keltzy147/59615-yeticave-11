@@ -1,5 +1,5 @@
 <?php 
-function price(int $price) : string {
+function price(int $price = null) : string {
 	if (ceil($price) < 1000) {
 		return $price . " ₽";
 	}
