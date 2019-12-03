@@ -1,5 +1,9 @@
 <?php 
+<<<<<<< HEAD
 function price(int $price) : string {
+=======
+function price(int $price = null) : string {
+>>>>>>> 7b18649a7a9cd8971d4c9c990702879c76804199
 	if (ceil($price) < 1000) {
 		return $price . " ₽";
 	}

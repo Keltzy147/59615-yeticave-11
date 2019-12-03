@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <!DOCTYPE html>
 <html lang="ru">
 <head>
@@ -96,3 +97,11 @@
 
   </body>
   </html>
+=======
+<?php require_once("templates/header.php"); ?>
+<main>
+	<?php require_once("templates/menu_category.php"); ?>
+	<?= $content; ?>
+</main>
+<?php require_once("templates/footer.php"); ?>
+>>>>>>> 7b18649a7a9cd8971d4c9c990702879c76804199
