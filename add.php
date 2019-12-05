@@ -13,7 +13,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             return validateCategory($value, $cats_ids);
         },
         'lot-name' => function($value) {
-            return validateLength($value, 10, 200);
+            return validateLength($value, 10, 255);
         },
         'message' => function($value) {
             return validateLength($value, 10, 3000);

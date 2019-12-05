@@ -159,4 +159,11 @@ function is_date_valid($value) {
     }
     return null;
 }
+
+function validateEmail($value, $min, $max) {
+        if (!filter_var($value, FILTER_VALIDATE_EMAIL)) {
+            return "Некорректно написан email адрес";
+        }
+    return null;
+}
 ?>
