@@ -1,4 +1,4 @@
-<?php 
+<?php
 function price(int $price = null) : string {
 	if (ceil($price) < 1000) {
 		return $price . " ₽";
@@ -157,6 +157,13 @@ function is_date_valid($value) {
     if ($value < $future_dt) {
         return "Дата должна быть на один день больше текущей даты, а также должна быть в формате ГГГГ-ММ-ДД";
     }
+    return null;
+}
+
+function validateEmail($value, $min, $max) {
+        if (!filter_var($value, FILTER_VALIDATE_EMAIL)) {
+            return "Некорректно написан email адрес";
+        }
     return null;
 }
 ?>
