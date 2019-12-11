@@ -9,26 +9,28 @@
               <p class="lot-item__description"><?= $lot['description'] ?></p>
             </div>
             <div class="lot-item__right">
-              <div class="lot-item__state">
-                <div class="lot__timer timer <?php if (timer($lot['expiry_date']) < 1): ?> timer--finishing <?php endif ?>">
-                  <?=timer($lot['expiry_date']);?>
-                </div>
-                <div class="lot-item__cost-state">
-                  <div class="lot-item__rate">
-                    <span class="lot-item__amount">Текущая цена</span>
-                    <span class="lot-item__cost"><?= price($lot['price']); ?></span>
-                  </div>
-                  <div class="lot-item__min-cost">
-                    Мин. ставка <span><?= price($lot['step']); ?></span>
-                  </div>
-                </div>
-                <form class="lot-item__form" action="https://echo.htmlacademy.ru" method="post" autocomplete="off">
-                  <p class="lot-item__form-item form__item form__item--invalid">
-                    <label for="cost">Ваша ставка</label>
-                    <input id="cost" type="text" name="cost" placeholder="12 000">
-                    <span class="form__error">Введите наименование лота</span>
-                  </p>
-                  <button type="submit" class="button">Сделать ставку</button>
+                <?php if ($is_auth = isset($_SESSION['user'])) : ?>
+                  <div class="lot-item__state">
+                    <div class="lot__timer timer <?php if (timer($lot['expiry_date']) < 1): ?> timer--finishing <?php endif ?>">
+                      <?=timer($lot['expiry_date']);?>
+                    </div>
+                    <div class="lot-item__cost-state">
+                      <div class="lot-item__rate">
+                        <span class="lot-item__amount">Текущая цена</span>
+                        <span class="lot-item__cost"><?= price($lot['price']); ?></span>
+                      </div>
+                      <div class="lot-item__min-cost">
+                        Мин. ставка <span><?= price($lot['step']); ?></span>
+                      </div>
+                    </div>
+                    <form class="lot-item__form" action="https://echo.htmlacademy.ru" method="post" autocomplete="off">
+                      <p class="lot-item__form-item form__item form__item--invalid">
+                        <label for="cost">Ваша ставка</label>
+                        <input id="cost" type="text" name="cost" placeholder="12 000">
+                        <!--<span class="form__error">Введите наименование лота</span>-->
+                      </p>
+                        <button type="submit" class="button">Сделать ставку</button>
+                    <?php endif?>
                 </form>
               </div>
               <div class="history">
