@@ -22,7 +22,6 @@
       <div class="form__item <?= $classname; ?>">
         <label for="name">Имя <sup>*</sup></label>
         <input id="name" type="text" name="name" placeholder="Введите имя" value="<?= getPostVal('name'); ?>">
-        <span class="form__error">Введите имя</span>
           <?php if ($classname): ?>
               <span class="form__error"><?= $errors['name']; ?></span>
           <?php endif ?>
