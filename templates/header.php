@@ -2,7 +2,7 @@
 <html lang="ru">
 <head>
 	<meta charset="UTF-8">
-	<title><?= $title ?></title>
+	<title><?= $title ;?></title>
 	<link href="/yeticave/css/normalize.min.css" rel="stylesheet">
 	<link href="/yeticave/css/style.css" rel="stylesheet">
 	<link href="/yeticave/css/flatpickr.min.css" rel="stylesheet">
