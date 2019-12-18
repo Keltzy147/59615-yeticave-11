@@ -12,12 +12,12 @@
 		<header class="main-header">
 			<div class="main-header__container container">
 				<h1 class="visually-hidden">YetiCave</h1>
-				<a class="main-header__logo" href="index.php">
+				<a class="main-header__logo" href="/yeticave/index.php">
 					<img src="/yeticave/img/logo.svg" width="160" height="39" alt="Логотип компании YetiCave">
 				</a>
-				<form class="main-header__search" method="get" action="https://echo.htmlacademy.ru" autocomplete="off">
-					<input type="search" name="search" placeholder="Поиск лота">
-					<input class="main-header__search-btn" type="submit" name="find" value="Найти">
+				<form class="main-header__search" action="/yeticave/search.php?search" method="get" enctype="multipart/form-data">
+					<input type="search" name="search" placeholder="Поиск лота" value="<?=$search = $_GET['search'] ?? ''; ?>">
+					<input class="main-header__search-btn" type="submit">
 				</form>
 				<a class="main-header__add-lot button" href="/yeticave/add.php">Добавить лот</a>
 				<nav class="user-menu">
@@ -30,10 +30,10 @@
 						<?php else: ?>
 							<ul class="user-menu__list">
 								<li class="user-menu__item">
-									<a href="sign-up.php">Регистрация</a>
+									<a href="/yeticave/sign-up.php">Регистрация</a>
 								</li>
 								<li class="user-menu__item">
-									<a href="login.php">Вход</a>
+									<a href="/yeticave/login.php">Вход</a>
 								</li>
 							</ul>
 						<?php endif; ?>
