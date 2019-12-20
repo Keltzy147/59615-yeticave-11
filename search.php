@@ -9,6 +9,7 @@ $cur_page = $_GET['page'] ?? 1;
 $limit = 3;
 
 if ($search) {
+
     $data_count_sql = "SELECT COUNT(*) AS cnt FROM lots WHERE MATCH (lots.name,lots.description) AGAINST(?)";
     $db_prep_count = db_get_prepare_stmt($connect_db,$data_count_sql,[$search]);
     mysqli_stmt_execute($db_prep_count);
@@ -33,6 +34,7 @@ if ($search) {
     $lots = mysqli_fetch_all($result, MYSQLI_ASSOC);
 }
 $page_content = include_template('search.php', [
+    'pages_limit' => $pages_limit,
     'search' => $search,
     'lots' => $lots,
     'pages' => $pages,

@@ -15,7 +15,7 @@
 				<a class="main-header__logo" href="/yeticave/index.php">
 					<img src="/yeticave/img/logo.svg" width="160" height="39" alt="Логотип компании YetiCave">
 				</a>
-				<form class="main-header__search" action="/yeticave/search.php?search" method="get" enctype="multipart/form-data">
+				<form class="main-header__search" action="/yeticave/search.php" method="get" enctype="multipart/form-data">
 					<input type="search" name="search" placeholder="Поиск лота" value="<?=$search = $_GET['search'] ?? ''; ?>">
 					<input class="main-header__search-btn" type="submit">
 				</form>
@@ -24,7 +24,7 @@
 					<?php if ($is_auth): ?>
 						<div class="user-menu__logged">
 							<p><?= $user_name; ?></p>
-							<a class="user-menu__bets" href="pages/my-bets.html">Мои ставки</a>
+							<a class="user-menu__bets" href="/yeticave/my-bets.php">Мои ставки</a>
 							<a class="user-menu__logout" href="/yeticave/logout.php">Выход</a>
 						</div>
 						<?php else: ?>

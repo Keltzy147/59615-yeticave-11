@@ -1,4 +1,47 @@
 <?php
+function get_noun_plural_form (int $number, string $one, string $two, string $many): string
+{
+    $number = (int) $number;
+    $mod10 = $number % 10;
+    $mod100 = $number % 100;
+
+    switch (true) {
+        case ($mod100 >= 11 && $mod100 <= 20):
+            return $many;
+
+        case ($mod10 > 5):
+            return $many;
+
+        case ($mod10 === 1):
+            return $one;
+
+        case ($mod10 >= 2 && $mod10 <= 4):
+            return $two;
+
+        default:
+            return $many;
+    }
+}
+
+function format_bet($dt) {
+    $formattedDate = date_create($dt);
+    $dt_now = date_create("now");
+    $dt_diff = date_diff($dt_now, $formattedDate);
+    $days_count = date_interval_format($dt_diff, "%a"); // дни
+    $hours_count = date_interval_format($dt_diff, "%h"); // часы
+    $min_count = date_interval_format($dt_diff, "%i"); // минуты
+    $lastMinWord = get_noun_plural_form((int) $min_count,'минуту','минуты','минут');
+    $lastHoursWord = get_noun_plural_form((int) $hours_count,'час','часа','часов');
+    if ($days_count === "0") {
+        if ($hours_count === "0") {
+            return ($min_count > 1) ? $min_count . " $lastMinWord назад": "только что" ;
+        } else {
+            return  "$hours_count $lastHoursWord назад";
+        }
+    }
+    return date_format($formattedDate,'d.m.Y в H:i');
+}
+
 function price(int $price = null) : string {
 	if (ceil($price) < 1000) {
 		return $price . " ₽";
@@ -72,13 +115,33 @@ function db_get_prepare_stmt($link, $sql, $data = []) {
         $values = array_merge([$stmt, $types], $stmt_data);
 
         $func = 'mysqli_stmt_bind_param';
-        $func(...$values);
+        $func(...$values); 
 
+        
         if (mysqli_errno($link) > 0) {
             $errorMsg = 'Не удалось связать подготовленное выражение с параметрами: ' . mysqli_error($link);
             die($errorMsg);
         }
     }
+
+    return $stmt;
+}
+
+function db_get_prepare_stmt_oneoff($link, $sql, $data) {
+    $stmt = mysqli_prepare($link, $sql);
+
+    if ($stmt === false) {
+        $errorMsg = 'Не удалось инициализировать подготовленное выражение: ' . mysqli_error($link);
+        die($errorMsg);
+    }
+        $values = array_merge([$stmt], $data);
+
+        $func = 'mysqli_stmt_bind_param';
+        
+        if (mysqli_errno($link) > 0) {
+            $errorMsg = 'Не удалось связать подготовленное выражение с параметрами: ' . mysqli_error($link);
+            die($errorMsg);
+        }
 
     return $stmt;
 }
