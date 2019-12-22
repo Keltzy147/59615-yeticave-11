@@ -47,14 +47,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $errors = array_filter($errors);
     if (empty($errors)) {
         $email = mysqli_real_escape_string($connect_db, $form['email']);
-        $sql = "SELECT id FROM users where email = '$email'";
+        $sql = mysqli_real_escape_string($connect_db, "SELECT id FROM users where email = '$email'");
         $res = mysqli_query($connect_db, $sql);
 
         if (mysqli_num_rows($res) > 0) {
             $errors['email'] = 'Пользователь с этим email уже зарегистрирован';
         } else {
             $password = password_hash($form['password'], PASSWORD_DEFAULT);
-            $sql = "INSERT INTO users (created_at, email, name, password, contacts) VALUES (NOW(),?,?,?,?)";
+            $sql = mysqli_real_escape_string($connect_db, "INSERT INTO users (created_at, email, name, password, contacts) VALUES (NOW(),?,?,?,?)");
             $stmt = db_get_prepare_stmt($connect_db, $sql,
                 [$form['email'], $form['name'], $password, $form['message']]);
             $res = mysqli_stmt_execute($stmt);

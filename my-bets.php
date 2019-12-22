@@ -6,11 +6,11 @@ require_once("vendor/autoload.php");
 
 if ($_SESSION) {
     $user_id = $_SESSION['user']['id'];
-    $sql_bets = "SELECT lots.winner_id, bets.user_id, lots.id as lot_id, lots.img, lots.name, categories.name AS category, lots.expiry_date,bets.created_at, bets.price AS price "
+    $sql_bets = mysqli_real_escape_string($connect_db, "SELECT lots.winner_id, bets.user_id, lots.id as lot_id, lots.img, lots.name, categories.name AS category, lots.expiry_date,bets.created_at, bets.price AS price "
         . "FROM bets "
         . "LEFT JOIN lots ON lots.id = bets.lot_id "
         . "LEFT JOIN categories ON lots.category_id = categories.id "
-        . "WHERE bets.user_id = '$user_id' ORDER BY bets.created_at DESC";
+        . "WHERE bets.user_id = '$user_id' ORDER BY bets.created_at DESC");
 
     $result = mysqli_query($connect_db, $sql_bets);
     if ($result) {
