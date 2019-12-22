@@ -6,7 +6,7 @@
                 <img src="/yeticave/<?= $lot['img'] ?>" width="730" height="548" alt="<?= $lot['name'] ?>">
             </div>
             <p class="lot-item__category">Категория: <span><?= $lot['category'] ?></span></p>
-            <p class="lot-item__description"><?= $lot['description'] ?></p>
+            <p class="lot-item__description"><?= strip_tags($lot['description']) ?></p>
         </div>
         <div class="lot-item__right">
             <?php if ($is_auth = isset($_SESSION['user'])) : ?>
@@ -41,7 +41,7 @@
                 <table class="history__list">
                     <?php foreach ($bets AS $bet) : ?>
                         <tr class="history__item">
-                            <td class="history__name"><?= $bet['name']; ?></td>
+                            <td class="history__name"><?= strip_tags($bet['name']); ?></td>
                             <td class="history__price"><?= price($bet['price']); ?></td>
                             <td class="history__time"><?= format_bet($bet['created_at']); ?></td>
                         </tr>

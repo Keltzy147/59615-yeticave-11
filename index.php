@@ -5,12 +5,12 @@ require_once("get_category.php");
 require_once("vendor/autoload.php");
 require_once("email.php");
 
-$sql_products = "SELECT lots.id, lots.name, lots.img, categories.name AS category, expiry_date, count(bets.price) AS price, "
+$sql_products = mysqli_real_escape_string($connect_db, "SELECT lots.id, lots.name, lots.img, categories.name AS category, expiry_date, count(bets.price) AS price, "
     . "IF (count(bets.price) > 0, MAX(bets.price), lots.first_price) AS price "
     . "FROM lots "
     . "LEFT JOIN bets ON lots.id = bets.lot_id "
     . "LEFT JOIN categories ON lots.category_id = categories.id "
-    . "WHERE lots.expiry_date > CURDATE() GROUP BY lots.id ORDER BY lots.expiry_date DESC ";
+    . "WHERE lots.expiry_date > CURDATE() GROUP BY lots.id ORDER BY lots.expiry_date DESC ");
 
 $products_result = mysqli_query($connect_db, $sql_products);
 if ($products_result) {

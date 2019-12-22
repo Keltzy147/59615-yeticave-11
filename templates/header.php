@@ -2,7 +2,7 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <title><?= $title ?></title>
+    <title><?= $title; ?></title>
     <link href="/yeticave/css/normalize.min.css" rel="stylesheet">
     <link href="/yeticave/css/style.css" rel="stylesheet">
     <link href="/yeticave/css/flatpickr.min.css" rel="stylesheet">
@@ -24,7 +24,7 @@
             <nav class="user-menu">
                 <?php if ($is_auth): ?>
                     <div class="user-menu__logged">
-                        <p><?= $user_name; ?></p>
+                        <p><?= strip_tags($user_name); ?></p>
                         <a class="user-menu__bets" href="/yeticave/my-bets.php">Мои ставки</a>
                         <a class="user-menu__logout" href="/yeticave/logout.php">Выход</a>
                     </div>

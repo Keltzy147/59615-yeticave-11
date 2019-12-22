@@ -5,10 +5,10 @@
             <tr class="rates__item <?= $rate['rate_class'] ?>">
                 <td class="rates__info">
                     <div class="rates__img">
-                        <img src="<?= $rate['img']; ?>" width="54" height="40" alt="<?= $rate['name']; ?>">
+                        <img src="<?= $rate['img']; ?>" width="54" height="40" alt="<?= strip_tags($rate['name']); ?>">
                     </div>
                     <h3 class="rates__title"><a
-                            href="/yeticave/lot.php?id=<?= $rate['lot_id']; ?>"><?= $rate['name']; ?></a></h3>
+                            href="/yeticave/lot.php?id=<?= $rate['lot_id']; ?>"><?= strip_tags($rate['name']); ?></a></h3>
                 </td>
                 <td class="rates__category"><?= $rate['category']; ?></td>
                 <td class="rates__timer">
