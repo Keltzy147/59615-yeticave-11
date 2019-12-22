@@ -2,6 +2,7 @@
 require_once("function.php");
 require_once("bd_connect.php");
 require_once("get_category.php");
+require_once("vendor/autoload.php");
 
 $error = [];
 $lots = [];
@@ -26,7 +27,7 @@ if ($category_id) {
     $offset = ($cur_page - 1) * $limit;
     $pages = range(1, $pages_limit);
 
-    if($count['id'] == $category_id and $_GET['page'] <= count($pages)){
+    if ($count['id'] == $category_id && count($pages) >= $cur_page) {
 
         $sql = "SELECT lots.id, lots.name, lots.description, lots.img, categories.name AS category, expiry_date, count(bets.price) AS price, "
             . " IF (count(bets.price) > 0, MAX(bets.price), lots.first_price) AS price "
@@ -40,17 +41,24 @@ if ($category_id) {
         $result = mysqli_stmt_get_result($stmt);
         $lots = mysqli_fetch_all($result, MYSQLI_ASSOC);
 
+        $sql_cat = "SELECT categories.name FROM categories WHERE categories.id = '$category_id'";
+        $stmt = db_get_prepare_stmt_oneoff($connect_db, $sql_cat, [$category_id]);
+        mysqli_stmt_execute($stmt);
+        $result = mysqli_stmt_get_result($stmt);
+        $cat = mysqli_fetch_all($result, MYSQLI_ASSOC);
+
+
         $page_content = include_template('category.php', [
-        'lots' => $lots,
-        'category_id' => $category_id,
-        'pages_limit' => $pages_limit,
-        'pages' => $pages,
-        'cur_page' => $cur_page
-    ]);
-    }
-    else {
-        $page_content = include_template('error.php', ['error' => 'Данная категория не найдена']);
-        $page_title = "Данная категория не найдена";
+            'cat' => $cat,
+            'lots' => $lots,
+            'category_id' => $category_id,
+            'pages_limit' => $pages_limit,
+            'pages' => $pages,
+            'cur_page' => $cur_page
+        ]);
+    } else {
+        header("Location: /yeticave/category.php?id=1&page=1");
+        exit();
     }
 }
 
