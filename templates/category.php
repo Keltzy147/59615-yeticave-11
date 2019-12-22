@@ -1,5 +1,6 @@
 <div class="container">
     <section class="lots">
+        <h2>Результаты поиска по категории «<span><?= $cat[0]['name']; ?></span>»</h2>
         <ul class="lots__list">
             <?php foreach ($lots as $lot): ?>
                 <li class="lots__item lot">
@@ -16,8 +17,9 @@
                                 <span class="lot__amount">Стартовая цена</span>
                                 <span class="lot__cost"><?= price($lot["price"]); ?></span>
                             </div>
-                            <div class="lot__timer timer <?php if (timer($lot['expiry_date']) < 1): ?> timer--finishing <?php endif ?>">
-                                <?=timer($lot['expiry_date']);?>
+                            <div
+                                class="lot__timer timer <?php if (timer($lot['expiry_date']) < 1): ?> timer--finishing <?php endif ?>">
+                                <?= timer($lot['expiry_date']); ?>
                             </div>
                         </div>
                     </div>
@@ -25,23 +27,24 @@
             <?php endforeach; ?>
         </ul>
     </section>
-    <?php if (!empty($lots)): ?>
+    <?php if (!empty($lots) && count($pages) > 1): ?>
         <ul class="pagination-list">
-            <li class="pagination-item pagination-item-prev"><a href ="?id=<?=$category_id;?>&page=<?php if ($cur_page <= 1) : ?><?= $cur_page=1 ;?><?php endif;?>">Назад</a></li>
-            <?php foreach ($pages as $page):?>
-                <li class="pagination-item <?php if($page == $cur_page): ?>pagination-item-active<?php endif;?>">
-                    <a href="?id=<?=$category_id;?>&page=<?=$page;?>"><?=$page;?></a>
+            <li class="pagination-item pagination-item-prev"><a
+                    href="?id=<?= $category_id; ?>&page=<?php ($cur_page <= 1) ?? $cur_page = 1 ?>">Назад</a></li>
+            <?php foreach ($pages as $page): ?>
+                <li class="pagination-item <?php if ($page == $cur_page): ?>pagination-item-active<?php endif; ?>">
+                    <a href="?id=<?= $category_id; ?>&page=<?= $page; ?>"><?= $page; ?></a>
                 </li>
             <?php endforeach; ?>
-            <?php if($_GET['page'] +1 <= count($pages)) :?>
+            <?php if ($_GET['page'] + 1 <= count($pages)) : ?>
                 <li class="pagination-item pagination-item-next">
-                    <a href="?id=<?=$category_id;?>&page=<?=$cur_page+1;?>">Вперед</a>
+                    <a href="?id=<?= $category_id; ?>&page=<?= $cur_page + 1; ?>">Вперед</a>
                 </li>
-            <?php else:?>
+            <?php else: ?>
                 <li class="pagination-item pagination-item-next">
-                    <a href="?id=<?=$category_id;?>&page=<?=$cur_page;?>">Вперед</a>
+                    <a href="?id=<?= $category_id; ?>&page=<?= $cur_page; ?>">Вперед</a>
                 </li>
-            <?php endif ;?>
+            <?php endif; ?>
         </ul>
     <?php endif ?>
 </div>

@@ -2,6 +2,7 @@
 require_once("function.php");
 require_once("bd_connect.php");
 require_once("get_category.php");
+require_once("vendor/autoload.php");
 
 $lots = [];
 $search = trim($_GET['search']) ?? '';
@@ -9,9 +10,8 @@ $cur_page = $_GET['page'] ?? 1;
 $limit = 3;
 
 if ($search) {
-
     $data_count_sql = "SELECT COUNT(*) AS cnt FROM lots WHERE MATCH (lots.name,lots.description) AGAINST(?)";
-    $db_prep_count = db_get_prepare_stmt($connect_db,$data_count_sql,[$search]);
+    $db_prep_count = db_get_prepare_stmt($connect_db, $data_count_sql, [$search]);
     mysqli_stmt_execute($db_prep_count);
     $result_count = mysqli_stmt_get_result($db_prep_count);
     $count = mysqli_fetch_array($result_count, MYSQLI_NUM);
@@ -33,6 +33,12 @@ if ($search) {
     $result = mysqli_stmt_get_result($stmt);
     $lots = mysqli_fetch_all($result, MYSQLI_ASSOC);
 }
+
+if ($cur_page > count($pages)) {
+    header("Location: /yeticave/search.php?search=" . $search);
+    exit();
+}
+
 $page_content = include_template('search.php', [
     'pages_limit' => $pages_limit,
     'search' => $search,

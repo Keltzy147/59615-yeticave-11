@@ -1,0 +1,13 @@
+{
+    "name": "keltzy/yeticave",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Vafin Marat,",
+            "email": "jobjk8@gmail.com"
+        }
+    ],
+    "require": {
+        "swiftmailer/swiftmailer": "^6.2"
+    }
+}

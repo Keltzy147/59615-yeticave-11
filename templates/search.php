@@ -20,8 +20,9 @@
                                 <span class="lot__amount">Стартовая цена</span>
                                 <span class="lot__cost"><?= price($lot["price"]); ?></span>
                             </div>
-                            <div class="lot__timer timer <?php if (timer($lot['expiry_date']) < 1): ?> timer--finishing <?php endif ?>">
-                                <?=timer($lot['expiry_date']);?>
+                            <div
+                                class="lot__timer timer <?php if (timer($lot['expiry_date']) < 1): ?> timer--finishing <?php endif ?>">
+                                <?= timer($lot['expiry_date']); ?>
                             </div>
                         </div>
                     </div>
@@ -29,15 +30,18 @@
             <?php endforeach; ?>
         </ul>
     </section>
-    <?php if (!empty($lots)): ?>
+    <?php if (!empty($lots) && count($pages) > 1): ?>
         <ul class="pagination-list">
-            <li class="pagination-item pagination-item-prev"><a href ="?search=<?=$search;?>&page=<?php if ($cur_page <= 1) : ?><?= $cur_page=1 ;?><?php else:?><?= $cur_page-1 ;?><?php endif;?>">Назад</a></li>
-            <?php foreach ($pages as $page):?>
-                <li class="pagination-item <?php if($page == $cur_page): ?>pagination-item-active<?php endif;?>">
-                    <a href="?search=<?=$search;?>&page=<?=$page;?>"><?=$page;?></a>
+            <li class="pagination-item pagination-item-prev"><a
+                    href="?search=<?= $search; ?>&page=<?php if ($cur_page <= 1) : ?><?= $cur_page = 1; ?><?php else: ?><?= $cur_page - 1; ?><?php endif; ?>">Назад</a>
+            </li>
+            <?php foreach ($pages as $page): ?>
+                <li class="pagination-item <?php if ($page == $cur_page): ?>pagination-item-active<?php endif; ?>">
+                    <a href="?search=<?= $search; ?>&page=<?= $page; ?>"><?= $page; ?></a>
                 </li>
             <?php endforeach; ?>
-            <li class="pagination-item pagination-item-next"><a href ="?search=<?=$search;?>&page=<?php if ($cur_page <= $pages_limit) : ?><?= $cur_page ;?><?php else:?><?= $cur_page+1 ;?><?php endif;?>">Вперед</a></li>
+            <li class="pagination-item pagination-item-next"><a href="?search=<?= $search; ?>&page=<?php if ($cur_page >= $pages_limit) : ?><?= $cur_page; ?><?php else: ?><?= $cur_page + 1; ?><?php endif; ?>">Вперед</a>
+            </li>
         </ul>
     <?php endif ?>
 </div>

@@ -2,7 +2,9 @@
 require_once("function.php");
 require_once("bd_connect.php");
 require_once("get_category.php");
-if($is_auth = isset($_SESSION['user'])) {
+require_once("vendor/autoload.php");
+
+if ($is_auth = isset($_SESSION['user'])) {
     $cats_ids = [];
     $cats_ids = array_column($categories, 'id');
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -28,8 +30,14 @@ if($is_auth = isset($_SESSION['user'])) {
                 return validateStep($value);
             }
         ];
-        $lot = filter_input_array(INPUT_POST, ['lot-name' => FILTER_DEFAULT, 'message' => FILTER_DEFAULT,
-            'category' => FILTER_DEFAULT, 'lot-date' => FILTER_DEFAULT, 'lot-rate' => FILTER_DEFAULT, 'lot-step' => FILTER_DEFAULT], true);
+        $lot = filter_input_array(INPUT_POST, [
+            'lot-name' => FILTER_DEFAULT,
+            'message' => FILTER_DEFAULT,
+            'category' => FILTER_DEFAULT,
+            'lot-date' => FILTER_DEFAULT,
+            'lot-rate' => FILTER_DEFAULT,
+            'lot-step' => FILTER_DEFAULT
+        ], true);
         $fields = [
             'lot-name' => 'Наименование',
             'message' => 'Описание',
@@ -67,7 +75,8 @@ if($is_auth = isset($_SESSION['user'])) {
             $errors['file'] = 'Вы не загрузили файл';
         }
         if (count($errors)) {
-            $page_content = include_template('add_lot.php', ['lot' => $lot, 'errors' => $errors, 'categories' => $categories]);
+            $page_content = include_template('add_lot.php',
+                ['lot' => $lot, 'errors' => $errors, 'categories' => $categories]);
         } else {
             $sql = 'INSERT INTO lots (name, description, category_id, expiry_date, first_price, step, img, created_at, user_id, winner_id) VALUES (?, ?, ?, ?, ?, ?, ?, NOW(), 1, 2)';
             $stmt = db_get_prepare_stmt($connect_db, $sql, $lot);
@@ -88,7 +97,6 @@ if($is_auth = isset($_SESSION['user'])) {
         'user_name' => $user_name
     ]);
     print($layout_content);
-}
-else{
+} else {
     http_response_code(403);
 }
