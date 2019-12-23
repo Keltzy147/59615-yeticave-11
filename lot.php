@@ -22,7 +22,7 @@ if ($_SESSION && $error) {
     $stmt = db_get_prepare_stmt($connect_db, $sql, [$lot_id, $user_id, $form['cost']]);
     $res = mysqli_stmt_execute($stmt);
     if ($res) {
-        header("Location: /yeticave/my-bets.php");
+        header("Location: /my-bets.php");
     }
 }
 $sql_bets = "SELECT users.name, bets.price, bets.created_at "

@@ -59,7 +59,7 @@ if ($category_id) {
             'cur_page' => $cur_page
         ]);
     } else {
-        header("Location: /yeticave/category.php?id=1&page=1");
+        header("Location: /category.php?id=1&page=1");
         exit();
     }
 }

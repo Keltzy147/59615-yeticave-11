@@ -35,7 +35,7 @@ if ($search) {
 }
 
 if ($cur_page > count($pages)) {
-    header("Location: /yeticave/search.php?search=" . $search);
+    header("Location: /search.php?search=" . $search);
     exit();
 }
 

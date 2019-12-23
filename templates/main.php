@@ -6,7 +6,7 @@
         <?php foreach ($categories as $category): ?>
             <li class="promo__item promo__item--<?= $category["link"]; ?>">
                 <a class="promo__link"
-                   href="/yeticave/category.php?id=<?= $category['id']; ?>&page=1"><?= $category["name"]; ?></a>
+                   href="category.php?id=<?= $category['id']; ?>&page=1"><?= $category["name"]; ?></a>
             </li>
         <?php endforeach; ?>
     </ul>

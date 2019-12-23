@@ -4,17 +4,16 @@ require_once("function.php");
 require_once("vendor/autoload.php");
 
 
-$yandexSmtpHost = 'smtp.yandex.com';
-$yandexEmail = 'it@ie-pro.ru';
-$yandexPassword = '12345678q';
-$yandexSmtpPort = 465;
-$yandexEncryption = 'SSL';
+$keksSmtpHost = 'phpdemo.ru';
+$keksEmail = 'keks@phpdemo.ru';
+$keksPassword = 'htmlacademy';
+$keksSmtpPort = 25;
 
 
-$transport = (new Swift_SmtpTransport($yandexSmtpHost, $yandexSmtpPort))
-    ->setUsername($yandexEmail)
-    ->setPassword($yandexPassword)
-    ->setEncryption('SSL');
+$transport = (new Swift_SmtpTransport($keksSmtpHost, $keksSmtpPort))
+    ->setUsername($keksEmail)
+    ->setPassword($keksPassword)
+    ->setEncryption('');
 
 $mailer = new Swift_Mailer($transport);
 
@@ -41,7 +40,7 @@ if ($res && mysqli_num_rows($res)) {
 
     $targetEmail = $user['email'];
     $message = (new Swift_Message('Вы выиграли в аукционе'))
-        ->setFrom([$yandexEmail => 'Yeticave'])
+        ->setFrom([$keksEmail => 'Yeticave'])
         ->setTo([$targetEmail])
         ->setBody($msq_content, 'text/html');
 

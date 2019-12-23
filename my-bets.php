@@ -39,7 +39,7 @@ if ($_SESSION) {
         return null;
     }
 } else {
-    header("Location: /yeticave/login.php");
+    header("Location: /login.php");
     exit();
 }
 $page_content = include_template('my-bets.php', ['rates' => $rates]);
