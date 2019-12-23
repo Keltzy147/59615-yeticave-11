@@ -3,7 +3,7 @@
     <div class="lot-item__content">
         <div class="lot-item__left">
             <div class="lot-item__image">
-                <img src="/yeticave/<?= $lot['img'] ?>" width="730" height="548" alt="<?= $lot['name'] ?>">
+                <img src="/<?= $lot['img'] ?>" width="730" height="548" alt="<?= $lot['name'] ?>">
             </div>
             <p class="lot-item__category">Категория: <span><?= $lot['category'] ?></span></p>
             <p class="lot-item__description"><?= strip_tags($lot['description']) ?></p>
@@ -24,7 +24,7 @@
                         Мин. ставка <span><?= price($lot['step']); ?></span>
                     </div>
                 </div>
-                <form class="lot-item__form" action="lot.php?id=<?= $lot_id; ?>" method="post"
+                <form class="lot-item__form" action="/lot.php?id=<?= $lot_id; ?>" method="post"
                       enctype="multipart/form-data">
                     <?php $classname = isset($error) ? "form__item--invalid" : ""; ?>
                     <p class="lot-item__form-item form__item <?= $classname; ?>">

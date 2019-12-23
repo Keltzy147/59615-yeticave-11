@@ -1,5 +1,5 @@
 <?php $form_classname = (isset($errors)) ? "form--invalid" : ""; ?>
-<form class="form container form--invalid <?= $form_classname; ?>" action="sign-up.php" method="post"
+<form class="form container form--invalid <?= $form_classname; ?>" action="/sign-up.php" method="post"
       enctype="multipart/form-data"> <!-- form
     --invalid -->
     <h2>Регистрация нового аккаунта</h2>
@@ -38,5 +38,5 @@
     </div>
     <span class="form__error form__error--bottom">Пожалуйста, исправьте ошибки в форме.</span>
     <button type="submit" class="button">Зарегистрироваться</button>
-    <a class="text-link" href="#">Уже есть аккаунт</a>
+    <a class="text-link" href="/login.php">Уже есть аккаунт</a>
 </form>

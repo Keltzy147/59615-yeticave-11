@@ -18,7 +18,7 @@ $form = filter_input_array(INPUT_POST, ['cost' => FILTER_DEFAULT], true);
 
 if ($_SESSION && $error) {
     $user_id = $_SESSION['user']['id'];
-    $sql = $connect_db, "INSERT INTO bets (created_at, lot_id, user_id, price) VALUES (NOW(),?,?,?)";
+    $sql = "INSERT INTO bets (created_at, lot_id, user_id, price) VALUES (NOW(),?,?,?)";
     $stmt = db_get_prepare_stmt($connect_db, $sql, [$lot_id, $user_id, $form['cost']]);
     $res = mysqli_stmt_execute($stmt);
     if ($res) {

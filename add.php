@@ -83,7 +83,7 @@ if ($is_auth = isset($_SESSION['user'])) {
             $res = mysqli_stmt_execute($stmt);
             if ($res) {
                 $lot_id = mysqli_insert_id($connect_db);
-                header("Location: /yeticave/lot.php?id=" . $lot_id);
+                header("Location: /lot.php?id=" . $lot_id);
             };
         }
     } else {
