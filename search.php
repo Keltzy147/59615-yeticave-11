@@ -9,7 +9,7 @@ $search = trim($_GET['search']) ?? '';
 $cur_page = $_GET['page'] ?? 1;
 $limit = 3;
 
-if ($search) {
+if (empty($search)) {
     $data_count_sql = mysqli_real_escape_string($connect_db, "SELECT COUNT(*) AS cnt FROM lots WHERE MATCH (lots.name,lots.description) AGAINST(?)");
     $db_prep_count = db_get_prepare_stmt($connect_db, $data_count_sql, [$search]);
     mysqli_stmt_execute($db_prep_count);
