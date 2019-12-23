@@ -50,17 +50,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $sql = mysqli_real_escape_string($connect_db, "SELECT id FROM users where email = '$email'");
         $res = mysqli_query($connect_db, $sql);
 
-        if (mysqli_num_rows($res) > 0) {
+        if (empty(mysqli_num_rows($res))) {
             $errors['email'] = 'Пользователь с этим email уже зарегистрирован';
         } else {
             $password = password_hash($form['password'], PASSWORD_DEFAULT);
-            $sql = mysqli_real_escape_string($connect_db, "INSERT INTO users (created_at, email, name, password, contacts) VALUES (NOW(),?,?,?,?)");
+            $sql = "INSERT INTO users (created_at, email, name, password, contacts) VALUES (NOW(),?,?,?,?)";
             $stmt = db_get_prepare_stmt($connect_db, $sql,
                 [$form['email'], $form['name'], $password, $form['message']]);
             $res = mysqli_stmt_execute($stmt);
         }
         if ($res) {
-            header("Location: /login.php");
+            header("Location: /yeticave/login.php");
             exit();
         }
     } else {

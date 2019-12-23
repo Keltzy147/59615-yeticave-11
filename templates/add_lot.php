@@ -40,7 +40,7 @@
     <div class="form__item form__item--file <?= $classname; ?>">
         <label>Изображение <sup>*</sup></label>
         <div class="form__input-file">
-            <input class="visually-hidden" type="file" id="lot-img" name="lot-img" value="<?= $lot['path']; ?>">
+            <input class="visually-hidden" type="file" id="lot-img" name="lot-img" value="<?= $_FILES['lot-img']['name']; ?>">
             <label for="lot-img">
                 Добавить
             </label>

@@ -78,12 +78,12 @@ if ($is_auth = isset($_SESSION['user'])) {
             $page_content = include_template('add_lot.php',
                 ['lot' => $lot, 'errors' => $errors, 'categories' => $categories]);
         } else {
-            $sql = mysqli_real_escape_string($connect_db, 'INSERT INTO lots (name, description, category_id, expiry_date, first_price, step, img, created_at, user_id, winner_id) VALUES (?, ?, ?, ?, ?, ?, ?, NOW(), 1, 2)');
+            $sql = 'INSERT INTO lots (name, description, category_id, expiry_date, first_price, step, img, created_at, user_id, winner_id) VALUES (?, ?, ?, ?, ?, ?, ?, NOW(), 1, 2)';
             $stmt = db_get_prepare_stmt($connect_db, $sql, $lot);
             $res = mysqli_stmt_execute($stmt);
             if ($res) {
                 $lot_id = mysqli_insert_id($connect_db);
-                header("Location: lot.php?id=" . $lot_id);
+                header("Location: /yeticave/lot.php?id=" . $lot_id);
             };
         }
     } else {

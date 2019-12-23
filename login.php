@@ -34,20 +34,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (count($errors)) {
         $page_content = include_template('login.php', ['form' => $form, 'errors' => $errors]);
     } else {
-        header("Location: /index.php");
+        header("Location: /yeticave/index.php");
         exit();
     }
 } else {
     $page_content = include_template("login.php", []);
 
     if (isset($_SESSION['user'])) {
-        header("Location: /index.php");
+        header("Location: /yeticave/index.php");
         exit();
     }
 }
 
 
-$page_content = include_template('login.php', []);
 $layout_content = include_template('layout_lots.php', [
     'content' => $page_content,
     'categories' => $categories,

@@ -21,13 +21,13 @@ if ($search) {
     $offset = ($cur_page - 1) * $limit;
     $pages = range(1, $pages_limit);
 
-    $sql = mysqli_real_escape_string($connect_db, "SELECT lots.id, lots.name, lots.description, lots.img, categories.name AS category, expiry_date, count(bets.price) AS price, "
+    $sql = "SELECT lots.id, lots.name, lots.description, lots.img, categories.name AS category, expiry_date, count(bets.price) AS price, "
         . " IF (count(bets.price) > 0, MAX(bets.price), lots.first_price) AS price "
         . " FROM lots "
         . " LEFT JOIN bets ON lots.id = bets.lot_id "
         . " LEFT JOIN categories ON lots.category_id = categories.id "
         . " WHERE MATCH(lots.NAME,lots.description) AGAINST(?) "
-        . " GROUP BY lots.id ORDER BY lots.expiry_date DESC LIMIT " . $limit . " OFFSET " . $offset);
+        . " GROUP BY lots.id ORDER BY lots.expiry_date DESC LIMIT " . $limit . " OFFSET " . $offset;
     $stmt = db_get_prepare_stmt($connect_db, $sql, [$search]);
     mysqli_stmt_execute($stmt);
     $result = mysqli_stmt_get_result($stmt);
@@ -35,7 +35,7 @@ if ($search) {
 }
 
 if ($cur_page > count($pages)) {
-    header("Location: /search.php?search=" . $search);
+    header("Location: /yeticave/search.php?search=" . $search);
     exit();
 }
 
