@@ -1,5 +1,5 @@
 <?php $form_classname = (isset($errors)) ? "form--invalid" : ""; ?>
-<form class="form container form--invalid <?= $form_classname; ?>" action="/sign-up.php" method="post"
+<form class="form container form--invalid <?= $form_classname; ?>" action="sign-up.php" method="post"
       enctype="multipart/form-data"> <!-- form
     --invalid -->
     <h2>Регистрация нового аккаунта</h2>

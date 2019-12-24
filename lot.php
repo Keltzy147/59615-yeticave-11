@@ -16,13 +16,13 @@ $sql_lot = sprintf($sql_lot, $lot_id);
 $result = mysqli_query($connect_db, $sql_lot);
 $form = filter_input_array(INPUT_POST, ['cost' => FILTER_DEFAULT], true);
 
-if ($_SESSION && $error) {
+if ($_SESSION['user'] && $error) {
     $user_id = $_SESSION['user']['id'];
     $sql = "INSERT INTO bets (created_at, lot_id, user_id, price) VALUES (NOW(),?,?,?)";
     $stmt = db_get_prepare_stmt($connect_db, $sql, [$lot_id, $user_id, $form['cost']]);
     $res = mysqli_stmt_execute($stmt);
     if ($res) {
-        header("Location: my-bets.php");
+        header("Location: /my-bets.php");
     }
 }
 $sql_bets = "SELECT users.name, bets.price, bets.created_at "

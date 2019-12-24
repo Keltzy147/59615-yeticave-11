@@ -21,7 +21,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     $user = $res ? mysqli_fetch_array($res, MYSQLI_ASSOC) : null;
 
-    if (!count($errors) and $user) {
+    if (count($errors) and $user) {
         if (password_verify($form['password'], $user['password'])) {
             $_SESSION['user'] = $user;
         } else {
@@ -29,19 +29,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
     } else {
         $errors['email'] = "Такой пользователь не найден";
+        $errors['password'] = "Неверный пароль";
     }
 
     if (count($errors)) {
         $page_content = include_template('login.php', ['form' => $form, 'errors' => $errors]);
-    } else {
-        header("Location: /yeticave/index.php");
-        exit();
     }
+
 } else {
     $page_content = include_template("login.php", []);
 
     if (isset($_SESSION['user'])) {
-        header("Location: /yeticave/index.php");
+        header("Location: /index.php");
         exit();
     }
 }
